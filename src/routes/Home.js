@@ -2,6 +2,8 @@ import React from "react";
 import axios from "axios";
 import Movie from "../components/Movie";
 import "./Home.css";
+import LoadingOverlay from "react-loading-overlay";
+import BeatLoader from "react-spinners/BeatLoader";
 
 class Home extends React.Component {
   state = {
@@ -27,12 +29,8 @@ class Home extends React.Component {
   render() {
     const { isLoading, movies } = this.state;
     return (
-      <section className="container">
-        {isLoading ? (
-          <div className="loader">
-            <span className="loader__text">Loading...</span>
-          </div>
-        ) : (
+      <LoadingOverlay active={isLoading} spinner={<BeatLoader />}>
+        <section className="container">
           <div className="movies">
             {movies.map((movie) => {
               return (
@@ -48,8 +46,8 @@ class Home extends React.Component {
               );
             })}
           </div>
-        )}
-      </section>
+        </section>
+      </LoadingOverlay>
     );
   }
 }
